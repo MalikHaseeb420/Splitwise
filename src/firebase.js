@@ -2,10 +2,9 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAnalytics } from 'firebase/analytics'
+import { GoogleAuthProvider } from 'firebase/auth'
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -20,5 +19,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 export const auth = getAuth()
+export const analytics = getAnalytics(app)
 export const database = getFirestore(app)
+export const provider = new GoogleAuthProvider()
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
+auth.useDeviceLanguage()
 export default app
